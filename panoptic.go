@@ -1,16 +1,9 @@
-// Source represents a video source
-
 package panoptic
 
 import (
-	"github.com/ziutek/gst"
+	    "github.com/ziutek/gst"
 )
-
 
 func GSTVersion() (int, int, int, int) {
 	return gst.GetVersion()
-}
-
-func yo() {
-	print("Yo\n")
 }
