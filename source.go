@@ -1,4 +1,6 @@
-// Source represents
+// Source represents a video source
+
+package main
 
 import (
 	"github.com/zizuk/go-gst"
