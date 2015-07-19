@@ -2,9 +2,9 @@
 
 package panoptic
 
-type Source interface {
+type Source struct {
 	name string
-}	
+}
 
 func yo() {
 	print("Yo\n")
