@@ -25,3 +25,9 @@ psql panoptic < schema.sql
 
 ## Design
 _(Work in progress)_
+
+## Reading
+* [Sample Surveillance Camera App](http://ahiru.eu/~vivia/rpi/app.c)
+
+## Streaming Server
+* `sudo apt-get install json-glib-dev libsoup2.4-dev gtk-doc-tools libtool autoconf automake libssl-dev`
