@@ -9,4 +9,3 @@ type Source struct {
 func yo() {
 	print("Yo\n")
 }
-
