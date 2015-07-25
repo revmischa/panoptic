@@ -2,10 +2,56 @@
 
 package panoptic
 
-type Source struct {
-	name string
+import (
+//	"github.com/ziutek/glib"
+	"github.com/revmischa/gst"
+	"fmt"
+	"os"
+)
+
+type CameraPipeline *gst.Pipeline
+type StreamNewSource struct {
+	Pad *gst.Pad
 }
 
-func yo() {
-	print("Yo\n")
+type StreamSource struct {
+	SourceSelect chan *StreamNewSource
+	URISrc *gst.Element
 }
+
+func checkElem(e *gst.Element, name string) {
+	if e == nil {
+		fmt.Fprintln(os.Stderr, "can't make element: ", name)
+		os.Exit(1)
+	}
+}
+
+// constructor
+func NewStreamSource(uri string) *StreamSource {
+	// create instance
+	ss := &StreamSource{make(chan *StreamNewSource), nil}
+
+	// create uridecoder to fetch and parse stream into elements
+	uriDec := gst.ElementFactoryMake("uridecodebin", "uri-decoder")
+	checkElem(uriDec, "uri-decoder")
+	uriDec.SetProperty("uri", uri)
+	// callback when we get a stream from the uri decoder
+	uriDec.ConnectNoi("pad-added", uriPadAdded, ss)
+	
+	ss.URISrc = uriDec
+
+	return ss
+}
+
+func uriPadAdded(ss *StreamSource, uriNewPad *gst.Pad) {
+//	fmt.Println("New pad: ", uriNewPad.GetName())
+	ss.SourceSelect <- &StreamNewSource{uriNewPad}
+}
+
+func (ss *StreamSource) MP4Decoder() *gst.Element {
+	dec := gst.ElementFactoryMake("", "mp4v-decoder")
+	return dec
+}
+
+	
+	
