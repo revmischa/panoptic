@@ -35,6 +35,7 @@ func NewStreamSource(uri string) *StreamSource {
 	uriDec := gst.ElementFactoryMake("uridecodebin", "uri-decoder")
 	checkElem(uriDec, "uri-decoder")
 	uriDec.SetProperty("uri", uri)
+	//uriDec.SetProperty("expose-all-streams", false)  // we don't want everything, just video we can decode
 	// callback when we get a stream from the uri decoder
 	uriDec.ConnectNoi("pad-added", uriPadAdded, ss)
 	
@@ -44,7 +45,10 @@ func NewStreamSource(uri string) *StreamSource {
 }
 
 func uriPadAdded(ss *StreamSource, uriNewPad *gst.Pad) {
-//	fmt.Println("New pad: ", uriNewPad.GetName())
+	caps := uriNewPad.GetCurrentCaps()
+	fmt.Println("New pad: ", uriNewPad.GetName())
+	fmt.Println("  Caps: ", caps.String())
+	caps.Unref()
 	ss.SourceSelect <- &StreamNewSource{uriNewPad}
 }
 
