@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"github.com/revmischa/gst"
 )
 
 /*
@@ -23,4 +24,13 @@ func TestGSTVersion(t *testing.T) {
 
 func TestOK(t *testing.T) {
 	print("OK\n")
+}
+
+func TestURI(t *testing.T) {
+	assert := assert.New(t)
+
+	// valid file path
+	uri, err := gst.FilenameToURI("./t/test.mp4")
+	assert.Contains(uri, "panoptic/t/test.mp4", "FilenameToURI handles relative path")
+	assert.Nil(err, "No error converting filename to URI")
 }
