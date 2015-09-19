@@ -44,6 +44,17 @@ func NewStreamSource(uri string) *StreamSource {
 	return ss
 }
 
+// create stream from filename
+func NewFileSource(filename string) *StreamSource {
+	uri, err := gst.FilenameToURI(filename)
+	if err != nil {
+		// print err.message
+		fmt.Printf("Error parsing filename " + filename)
+		return nil
+	}
+	return NewStreamSource(uri)
+}
+
 func uriPadAdded(ss *StreamSource, uriNewPad *gst.Pad) {
 	caps := uriNewPad.GetCurrentCaps()
 	fmt.Println("New pad: ", uriNewPad.GetName())

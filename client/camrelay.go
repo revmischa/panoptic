@@ -16,7 +16,8 @@ got src pad:  /GstPipeline:camrelay/GstURIDecodeBin:uri-decoder.GstGhostPad:src_
 */
 func main() {
 	// camera stream source
-	ss := panoptic.NewStreamSource("rtsp://10.0.2.70/mpeg4/media.amp")
+	// ss := panoptic.NewStreamSource("rtsp://10.0.2.70/mpeg4/media.amp")
+	ss := panoptic.NewFileSource("./t/test.mp4")
 
 	// output (test)
 	sink := gst.ElementFactoryMake("autovideosink", "video-output")
