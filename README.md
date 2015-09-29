@@ -6,8 +6,18 @@ This will be a collection of modules for accessing, storing and retrieving video
 
 * panoptic is written in Go and is based on gstreamer and glib
 
+
 ### Packages
 
+#### OSX
+* Install:
+ * [gstreamer runtime](http://gstreamer.freedesktop.org/data/pkg/osx/1.6.0/gstreamer-1.0-1.6.0-x86_64.pkg)
+ * [gstreamer development framework](http://gstreamer.freedesktop.org/data/pkg/osx/1.6.0/gstreamer-1.0-devel-1.6.0-x86_64.pkg)
+* Run:
+ * `PKG_CONFIG_PATH="/Library/Frameworks/GStreamer.framework/Versions/1.0/lib/pkgconfig:$PKG_CONFIG_PATH" go test`
+ * `PKG_CONFIG_PATH="/Library/Frameworks/GStreamer.framework/Versions/1.0/lib/pkgconfig:$PKG_CONFIG_PATH" go run client/camrelay.go`
+
+#### Linux
 * `sudo apt-get install golang libgstreamer1.0-dev postgresql-9.3 libpq-dev postgis`
 
 ### Source
