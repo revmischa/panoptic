@@ -19,6 +19,11 @@ type StreamSource struct {
 	URISrc *gst.Element
 }
 
+type RTPRelay struct {
+	Source *StreamSource
+	// Destination chan *RTPPacket
+}
+
 func checkElem(e *gst.Element, name string) {
 	if e == nil {
 		fmt.Fprintln(os.Stderr, "can't make element: ", name)
@@ -68,5 +73,9 @@ func (ss *StreamSource) MP4Decoder() *gst.Element {
 	return dec
 }
 
-	
+func (ss *StreamSource) NewRTPRelay(destinationURI string) {
+	rtpEncoder := gst.ElementFactoryMake("rtppay", "RTP relay repayloader") // ?
+	checkElem(rtpEncoder, "RTP Relay")
+	// relay := &RTPRelay{}
+}
 	
